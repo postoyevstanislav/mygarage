@@ -10,4 +10,4 @@
 8. Refactoring & Mock Interviews
 
 Final Project: MyGarage
-Deadline: End of the year.
+Deadline: End of the year 2026.
