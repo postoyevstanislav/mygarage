@@ -1,0 +1,26 @@
+{
+  "name": "mygarage",
+  "version": "1.0.0",
+  "description": "This repository documents my journey from React Front-End Engineer to confident Full-Stack Engineer.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/postoyevstanislav/mygarage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/postoyevstanislav/mygarage/issues"
+  },
+  "homepage": "https://github.com/postoyevstanislav/mygarage#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  }
+}
