@@ -1,5 +1,6 @@
 {
   "name": "mygarage",
+  "type": "commonjs",
   "version": "1.0.0",
   "description": "This repository documents my journey from React Front-End Engineer to confident Full-Stack Engineer.",
   "main": "index.js",
