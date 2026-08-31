@@ -163,6 +163,10 @@ Common code:
     ↓
 file or directory does not exist
 
+`EEXIST`
+    ↓
+resource already exists; commonly encountered when creating an existing directory without `recursive: true`
+
 Principle:
 Handle an error where you know what to do with it.
 If the error is not handled at that level, rethrow it.
@@ -178,3 +182,118 @@ no top-level `await`
 wrap async work in an async function
     ↓
 `await`
+
+---
+
+## CLI
+
+`node garage.js add "Subaru Impreza"`
+    ↓
+`process.argv`
+    ↓
+index 0 = Node executable
+index 1 = script path
+index 2+ = user arguments
+
+CLI arguments arrive as strings.
+
+Normalize values when the domain expects another type:
+`Number(id)` → numeric ID
+
+---
+
+## MyGarage CLI Data Flow
+
+CLI command
+    ↓
+domain operation
+    ↓
+readCars() / saveCars()
+    ↓
+JSON file
+
+`readCars()`
+    ↓
+readFile
+    ↓
+JSON.parse
+    ↓
+Array<Car>
+
+`saveCars(cars)`
+    ↓
+JSON.stringify
+    ↓
+writeFile
+    ↓
+cars.json
+
+---
+
+## IDs vs Indexes
+
+Array index
+    ↓
+position
+    ↓
+can change after mutations
+
+Entity ID
+    ↓
+identity
+    ↓
+should remain stable
+
+For the simple CLI:
+empty array → next ID = 1
+otherwise → max existing ID + 1
+
+---
+
+## Race Condition
+
+`read → modify → write`
+    ↓
+not atomic
+
+Concurrent processes can interleave:
+
+Process A: read old data
+Process B: read old data
+Process A: write update A
+Process B: write update B
+    ↓
+update A may be lost
+
+Synchronous execution blocks one process/thread during the operation, but does not make a multi-process read-modify-write sequence atomic.
+
+---
+
+## Array Operations Used
+
+`filter()`
+    ↓
+returns a new array
+    ↓
+useful for removing items that match a condition
+
+Case-insensitive search:
+`value.toLowerCase().includes(query.toLowerCase())`
+
+---
+
+## Architecture Direction
+
+MyGarage planned backend:
+
+Controller
+    ↓
+Service
+    ↓
+Repository
+    ↓
+Prisma
+    ↓
+PostgreSQL
+
+The CLI is intentionally a small practice application that builds intuition for data flow and separation of responsibilities before moving into HTTP, Express, PostgreSQL, and NestJS.
